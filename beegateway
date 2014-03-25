@@ -100,6 +100,51 @@ void loop() {
 
   if (radio.receiveDone())
   {
+  
+  
+  
+  // -------------------------------------------------------------------------------------//
+  
+// upTime,photoSensor,DHThumidity,DHTtemp,LMtemp,radiotemp,battVoltage
+
+//  char *upTime, *photoSensor, *DHThumidity, *DHTtemp, *LMtemp, *radiotemp, *battVoltage;
+//  int upTime1, photoSensor1, DHThumidity1, DHTtemp1, LMtemp1, radiotemp1, battVoltage1;
+
+    upTime = strtok((char*)radio.DATA,",");
+    photoSensor = strtok(NULL,",");
+    DHThumidity = strtok(NULL,",");
+    DHTtemp = strtok(NULL,",");    
+    LMtemp = strtok(NULL,",");
+    radiotemp = strtok(NULL,",");
+    battVoltage = strtok(NULL,",");
+
+    upTime1 = atoi(upTime);
+    photoSensor1 = atoi(photoSensor);
+    DHThumidity1 = atoi(DHThumidity);
+    DHTtemp1 = atoi(DHTtemp);
+    LMtemp1 = atoi(LMtemp);    
+    radiotemp1 = atoi(radiotemp);
+    battVoltage1 = atoi(battVoltage);
+    
+}
+      }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
     Serial.print('[');Serial.print(radio.SENDERID, DEC);Serial.print("] ");
     if (promiscuousMode)
     {
