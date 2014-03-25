@@ -5,7 +5,7 @@
 // Get the RFM69 and SPIFlash library at: https://github.com/LowPowerLab/
 
 // Program sends the info:
-// NodeID, uptime in MS, radio.temp, DHT temp, L61 temp, DHT humidity, Photosensor, Battery Volts 
+// NodeID, uptime in MS, radio.temp, DHT temp, L61 temp, DHT humidity, Photosensor, Battery Voltage 
 //DHT=2
 //L61=3
 //Photoresistor=A0
@@ -34,8 +34,10 @@ DHT dht(DHTPIN, DHTTYPE);
 #define SERIAL_BAUD   115200 
 
 
-int TRANSMITPERIOD = 100; //transmit a packet to gateway so often (in ms)
-char payload[] = { "This is my message" }; 
+int TRANSMITPERIOD = 3000; //transmit a packet to gateway so often (in ms)
+char payload[] = { "This is my message:",
+radio.readTemperature(-1)
+                 }; 
 // NodeID, uptime in MS, radio.temp, DHT temp, L61 temp, DHT humidity, Photosensor, Battery Volts 
 
 char buff[20];
@@ -163,6 +165,29 @@ void loop() {
     lastPeriod=currPeriod;
     //char payload[] = { "DHT T:", dht.readTemperature(), " H:", dht.readHumidity() };
     
+    
+    
+    
+    
+    
+    
+    
+    // upTime,photoSensor,DHThumidity,DHTtemp,LMtemp,radiotemp,battVoltage
+    sprintf(buf,"%d,%d,%d,%d,%d,%d,%d :\n",upTime,photoSensor,DHThumidity,DHTtemp,LMtemp,radiotemp,battVoltage);  //Build string
+    //radio.send(GATEWAYID, buf, sendSize);
+    radio.send(GATEWAYID, buf, 30);
+    Blink(LED,3);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
     Serial.print("Sending[");
     Serial.print(sendSize);
     Serial.print("]: ");
@@ -174,6 +199,8 @@ void loop() {
     else Serial.print(" nothing...");
 
     sendSize = (sendSize + 1) % 31;
+    */
+    
     Serial.println();
     Blink(LED,3);
   }
